@@ -53,11 +53,13 @@
 --    функциях работы с датой и временем
 	
 	SELECT
-  		orders.order_date,
-  		COUNT(orders.order_date),
-  		SUM(products.price) * COUNT(orders.order_date) AS total_price
+		orders.order_date,
+		COUNT(orders.order_date),
+		SUM(products.price)
 	FROM products
   	INNER JOIN orders ON products.id = orders.product_id
 	GROUP BY (orders.order_date)
 
--- 4.
+-- *  Улучшите этот запрос, введя группировку по признаку "дешевый товар", "средняя цена", 
+--    "дорогой товар". Критерии отнесения товара к той или иной группе определите самостоятельно.
+--    В итоге должно получиться "дата", "группа по цене", "число заказов", "сумма заказов"
