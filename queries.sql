@@ -63,3 +63,33 @@
 -- *  Улучшите этот запрос, введя группировку по признаку "дешевый товар", "средняя цена", 
 --    "дорогой товар". Критерии отнесения товара к той или иной группе определите самостоятельно.
 --    В итоге должно получиться "дата", "группа по цене", "число заказов", "сумма заказов"
+	
+	SELECT
+	  orders.order_date,
+	  p.attribute,
+	  COUNT(orders.order_date),
+	  SUM(p.price)
+	FROM (
+	  SELECT p.*
+	  FROM (
+	         SELECT *, ('дешевый товар') AS attribute
+	         FROM products
+	         WHERE products.price <= 600
+	       ) AS p
+	  UNION
+	  SELECT p.*
+	  FROM (
+	         SELECT *, ('средняя цена') AS attribute
+	         FROM products
+	         WHERE products.price > 600 AND products.price < 2000
+	       ) AS p
+	  UNION
+	  SELECT p.*
+	  FROM (
+	         SELECT *, ('дорогой товар') AS attribute
+	         FROM products
+	         WHERE products.price >= 2000
+	       ) AS p
+	) AS p
+	INNER JOIN orders ON p.id = orders.product_id
+	GROUP BY (orders.order_date, p.attribute)
