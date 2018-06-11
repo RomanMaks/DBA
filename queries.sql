@@ -36,9 +36,9 @@
 --    дата и время, ID товара.
 
   CREATE TABLE orders (
-    "number" SERIAL, -- `number` SERIAL для MySQL
+    "number" SERIAL, -- `number` для MySQL
     order_date DATE NOT NULL,
-    product_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL, -- BIGINT UNSIGNED для MySQL
     PRIMARY KEY ("number")
   );
 
@@ -76,3 +76,6 @@
   FROM products
     INNER JOIN orders ON products.id = orders.product_id
   GROUP BY (orders.order_date, price_category)
+
+  -- Для MySQL такой вариант не сработает, можно убрать дату и получить сколько в каждой 
+  -- из категории есть товара и на какую сумму.
