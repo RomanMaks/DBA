@@ -39,7 +39,7 @@
     "number" SERIAL, -- `number` SERIAL для MySQL
     order_date DATE NOT NULL,
     product_id INTEGER NOT NULL,
-    PRIMARY KEY (order_number)
+    PRIMARY KEY ("number")
   );
 
   ALTER TABLE orders
