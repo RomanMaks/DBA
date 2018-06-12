@@ -67,9 +67,8 @@
   SELECT
     orders.order_date,
     CASE
-      WHEN products.price BETWEEN 0 AND 500 THEN 'дешевый товар'
       WHEN products.price BETWEEN 600 AND 1900 THEN 'средняя цена'
-      WHEN products.price >= 2000 THEN 'дорогой товар'
+      WHEN products.price >= 2000 THEN 'дорогой товар' ELSE 'дешевый товар'
     END AS price_category,
     COUNT(orders.order_date),
     SUM(products.price)
